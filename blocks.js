@@ -52,6 +52,11 @@ export class Block {
   getBasePosition() {
     return this.shape.length * this.blockSize + this.y;
   }
+
+  move(direction) {
+    // Direction = -1 || 1;
+    this.x += direction * this.blockSize;
+  }
 }
 
 export class Blocks {
@@ -66,6 +71,8 @@ export class Blocks {
   }
 
   init() {
+    console.log("=======================");
+    console.log("Blocks starting...");
     const rows = this.canvas.height / this.blockSize;
     const columns = this.canvas.width / this.blockSize;
 
@@ -73,6 +80,9 @@ export class Blocks {
 
     // Generacion del mapa
     this.blocks.init(rows, columns);
+    console.log("Blocks finished")
+    console.log("=======================");
+
   }
 
   generateBlock() {
@@ -105,6 +115,14 @@ export class Blocks {
   // Actualizacion del mapa
   addBlockToMap(block) {
     this.blocks.addBlockToMap(block);
+  }
+
+  move(direction) {
+    const currentBlock = this.currentBlock;
+    const blockWidth = currentBlock.getShape()[0].length; // ancho de una fila
+    if(currentBlock.x - 1 >= 0 && currentBlock.x + blockWidth + 1 <= this.canvas.width) {
+      currentBlock.move(direction);
+    }
   }
 
   drawMap() {

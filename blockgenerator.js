@@ -49,6 +49,7 @@ export default class BlockGenerator {
     );
 
     this.colors = this.shapes.map((block) => block.color);
+    console.log(`Block generator loaded (${this.shapes.length} blocks)`);
   }
 
   generateBlock() {

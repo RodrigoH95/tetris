@@ -8,6 +8,7 @@ export default class BlockMap {
     for (let i = 0; i < rows; i++) {
       this.map.push(new Array(columns).fill(0));
     }
+    console.log(`Map loaded [${columns}x${rows}]`);
   }
 
   getMap() {
@@ -21,6 +22,7 @@ export default class BlockMap {
     const blockSize = this.blockSize;
     const shape = block.getShape();
     const { x, y } = block.getPosition();
+
     // por cada bloque de la figura comprobar si mapa ya tiene un bloque debajo
     // de la posicion del bloque
     let row = y / blockSize;
