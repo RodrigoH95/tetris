@@ -1,10 +1,10 @@
 import { Block } from "./blocks.js";
+
 export default class BlockGenerator {
-  constructor(canvas, blockSize) {
+  constructor(canvasWidth, blockSize) {
     this.shapes = [];
     this.colors = [];
-    this.canvas = canvas;
-    this.width = this.canvas.width;
+    this.width = canvasWidth;
     this.blockSize = blockSize;
   }
 
@@ -33,9 +33,10 @@ export default class BlockGenerator {
         ],
         color: "#FF8C00",
       },
-      { 
+      {
         shape: [[4], [4], [4], [4]],
-        color: "#DC143C" },
+        color: "#DC143C",
+      },
       {
         shape: [
           [5, 0],
@@ -69,12 +70,6 @@ export default class BlockGenerator {
         (Math.random() * (this.width + this.blockSize - blockWidth)) /
           this.blockSize
       ) * this.blockSize;
-    return new Block(
-      this.canvas.getContext("2d"),
-      pos,
-      shape,
-      reversed,
-      this.blockSize
-    );
+    return new Block(pos, shape, reversed, this.blockSize);
   }
 }

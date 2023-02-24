@@ -2,10 +2,9 @@ import BlockMap from "./map.js";
 import BlockGenerator from "./blockgenerator.js";
 
 export class Block {
-  constructor(ctx, x, data, reversed = false, size = 10) {
+  constructor(x, data, reversed = false, size = 10) {
     this.x = x;
     this.y = 0;
-    this.ctx = ctx;
     this.blockSize = size;
     this.shape = reversed ? [...data.shape].reverse() : [...data.shape];
     this.color = data.color;
@@ -43,10 +42,9 @@ export class Block {
 export class Blocks {
   constructor(canvas) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext("2d");
     this.blockSize = 20;
     this.map = new BlockMap(this.blockSize);
-    this.blockGenerator = new BlockGenerator(this.canvas, this.blockSize);
+    this.blockGenerator = new BlockGenerator(this.canvas.width, this.blockSize);
     this.shapes = [];
     this.currentBlock = null;
   }
