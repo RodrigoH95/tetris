@@ -21,7 +21,6 @@ export default class Render {
         if (map[i][j] > 0) {
           // Obtener colores de otra forma
           const color = this.colors[map[i][j] - 1];
-          console.log(color);
           const x = j * blockSize;
           const y = i * blockSize;
           this.drawSquare(x, y, blockSize, color);
@@ -31,7 +30,6 @@ export default class Render {
   }
 
   clear() {
-    console.log("Cleaning screen");
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 

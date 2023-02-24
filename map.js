@@ -29,13 +29,10 @@ export default class BlockMap {
         lines++;
       }
     }
-    console.log(indexes);
     for (const index of indexes) {
       this.map.splice(index, 1);
       this.map.unshift(new Array(this.columns).fill(0));
     }
-
-    console.log("Lines found:", lines);
   }
 
   // Check de colision con otro bloque del mapa
