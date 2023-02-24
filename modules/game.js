@@ -11,10 +11,12 @@ export default class Game {
     this.loop = null;
     this.controls = null;
     this.FPS = 60;
-    this.speed = 2;
+    this.minSpeed = 2;
+    this.speed = this.minSpeed;
     this.frameCounter = 0;
     this.isAccelerating = false;
     this.render = null;
+    // this.lastLoop = null;
   }
 
   init(width, height) {
@@ -35,6 +37,8 @@ export default class Game {
 
     this.controls = new Controls(this);
     this.controls.init();
+
+    // this.lastLoop = new Date();
   }
 
   start() {
@@ -52,7 +56,7 @@ export default class Game {
   }
 
   slowDown() {
-    this.speed = 2;
+    this.speed = this.minSpeed;
     this.isAccelerating = false;
   }
 
@@ -60,7 +64,7 @@ export default class Game {
     const orig = this.blocks.getCurrentBlock();
     const blockCopy = Object.assign(Object.create(Object.getPrototypeOf(orig)), orig);
     blockCopy.rotate();
-    if (!this.blocks.checkCollision(blockCopy)) {
+    if (!this.blocks.map.checkLateralCollision(blockCopy, 0)) {
       orig.rotate();
     }
   }
@@ -77,17 +81,18 @@ export default class Game {
   }
 
   update() {
+    this.draw()
+
     if (this.frameCounter >= this.FPS / this.speed) {
+      if (this.blocks.checkCollision(this.blocks.getCurrentBlock())) {
+        this.blocks.addBlockToMap(this.blocks.getCurrentBlock());
+        this.blocks.checkLines();
+        this.blocks.setCurrentBlock(this.blocks.generateBlock());
+      }
       this.blocks.update();
       this.frameCounter = 0;
     }
 
-    if (this.blocks.checkCollision(this.blocks.getCurrentBlock())) {
-      this.blocks.addBlockToMap(this.blocks.getCurrentBlock());
-      this.blocks.checkLines();
-      this.blocks.setCurrentBlock(this.blocks.generateBlock());
-    }
-    this.draw()
     this.frameCounter += this.speed;
   }
 }

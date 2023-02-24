@@ -4,12 +4,11 @@ export default class BlockGenerator {
   constructor(canvasWidth, blockSize) {
     this.shapes = [];
     this.colors = [];
-    this.width = canvasWidth;
+    this.canvasWidth = canvasWidth;
     this.blockSize = blockSize;
   }
 
   init() {
-    // Shapes
     this.shapes.push(
       {
         shape: [
@@ -17,25 +16,25 @@ export default class BlockGenerator {
           [1, 0],
           [1, 1],
         ],
-        color: "#7FFF00",
+        color: "#F2E830",
       },
       {
         shape: [
           [2, 2, 0],
           [0, 2, 2],
         ],
-        color: "#00008B",
+        color: "#66E42E",
       },
       {
         shape: [
           [3, 3],
           [3, 3],
         ],
-        color: "#FF8C00",
+        color: "#296DFC",
       },
       {
         shape: [[4], [4], [4], [4]],
-        color: "#DC143C",
+        color: "#FF4747",
       },
       {
         shape: [
@@ -43,17 +42,23 @@ export default class BlockGenerator {
           [5, 5],
           [5, 0],
         ],
-        color: "#00BFFF",
+        color: "#F553FF",
+      },
+      {
+        shape: [
+          [0, 6],
+          [0, 6],
+          [6, 6],
+        ],
+        color: "#FF9018",
+      },
+      {
+        shape: [
+          [0, 7, 7],
+          [7, 7, 0],
+        ],
+        color: "#2AEDD5",
       }
-      // {
-      //   type: "+",
-      //   shape: [
-      //     [0, 6, 0],
-      //     [6, 6, 6],
-      //     [0, 6, 0],
-      //   ],
-      //   color: "cyan",
-      // }
     );
 
     this.colors = this.shapes.map((block) => block.color);
@@ -62,14 +67,10 @@ export default class BlockGenerator {
 
   generateBlock() {
     const shape = this.shapes[Math.floor(Math.random() * this.shapes.length)];
-    const blockWidth = shape.shape[0].length * this.blockSize; // row width == block width
-    const reversed = Math.floor(Math.random() * 2);
+    const blockSize = this.blockSize;
+    const rowWidth = shape.shape[0].length * blockSize;
     // Formula para dibujar el bloque dentro de las paredes del juego (Podria reemplazarse para que simplemente aparezcan en el centro de la pantalla)
-    const pos =
-      Math.floor(
-        (Math.random() * (this.width + this.blockSize - blockWidth)) /
-          this.blockSize
-      ) * this.blockSize;
-    return new Block(pos, shape, reversed, this.blockSize);
+    const pos = Math.floor((Math.random() * (this.canvasWidth - rowWidth + blockSize)) / blockSize) * blockSize;
+    return new Block(pos, shape, blockSize);
   }
 }

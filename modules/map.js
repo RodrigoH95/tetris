@@ -36,12 +36,11 @@ export default class BlockMap {
   }
 
   // Check de colision con otro bloque del mapa
-  checkCollision(block, direction = 0) {
+  checkCollision(block) {
     const map = this.getMap();
     const blockSize = this.blockSize;
     const shape = block.getShape();
     const { x, y } = block.getPosition();
-    const mapWidth = map[0].length;
     // por cada bloque de la figura comprobar si mapa ya tiene un bloque debajo
     // de la posicion del bloque
     let row = y / blockSize;
@@ -49,7 +48,6 @@ export default class BlockMap {
     for (const r of shape) {
       let column = x / blockSize;
       for (const c of r) {
-        // CHECK COLISION VERTICAL
         if (
           !map[row + 1] ||
           (c && map[row + 1][column]) ||
@@ -58,7 +56,23 @@ export default class BlockMap {
           return true;
         }
 
-        // CHECK COLISION LATERAL
+        column++;
+      }
+      row++;
+    }
+    return false;
+  }
+
+  checkLateralCollision(block, direction) {
+    const map = this.getMap();
+    const blockSize = this.blockSize;
+    const shape = block.getShape();
+    const { x, y } = block.getPosition();
+    const mapWidth = map[0].length;
+    let row = y / blockSize;
+    for (const r of shape) {
+      let column = x / blockSize;
+      for (const c of r) {
         // position == valor del bloque en el mapa para valor de fila y columna
         let position = map[row][column + direction];
         if (

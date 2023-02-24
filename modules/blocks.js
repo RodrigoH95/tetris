@@ -2,11 +2,11 @@ import BlockMap from "./map.js";
 import BlockGenerator from "./blockgenerator.js";
 
 export class Block {
-  constructor(x, data, reversed = false, size = 10) {
+  constructor(x, data, size = 10) {
     this.x = x;
     this.y = 0;
     this.blockSize = size;
-    this.shape = reversed ? [...data.shape].reverse() : [...data.shape];
+    this.shape = [...data.shape];
     this.color = data.color;
   }
 
@@ -91,9 +91,8 @@ export class Blocks {
 
   move(direction) {
     const currentBlock = this.currentBlock;
-    const blockWidth = currentBlock.getShape()[0].length * this.blockSize; // ancho de una fila
 
-    if (!this.map.checkCollision(currentBlock, direction)) {
+    if (!this.map.checkLateralCollision(currentBlock, direction)) {
       currentBlock.move(direction);
     }
   }
