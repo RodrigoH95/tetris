@@ -1,5 +1,6 @@
 import { Blocks } from "./blocks.js";
-import Controls from './controls.js';
+import Controls from "./controls.js";
+import Render from "./render.js";
 
 export default class Game {
   constructor(root) {
@@ -13,6 +14,7 @@ export default class Game {
     this.speed = 2;
     this.frameCounter = 0;
     this.isAccelerating = false;
+    this.render = null;
   }
 
   init(width, height) {
@@ -27,6 +29,9 @@ export default class Game {
 
     this.blocks = new Blocks(this.canvas);
     this.blocks.init();
+
+    let colors = this.blocks.blockGenerator.colors; // Lista de colores
+    this.render = new Render(this.canvas, colors);
 
     this.controls = new Controls(this);
     this.controls.init();
@@ -51,9 +56,24 @@ export default class Game {
     this.isAccelerating = false;
   }
 
+  rotateBlock() {
+    const orig = this.blocks.getCurrentBlock();
+    const blockCopy = Object.assign(Object.create(Object.getPrototypeOf(orig)), orig);
+    blockCopy.rotate();
+    if (!this.blocks.checkCollision(blockCopy)) {
+      orig.rotate();
+    }
+  }
+
   stopLoop() {
     clearInterval(this.loop);
     this.loop = null;
+  }
+
+  draw() {
+    this.render.clear();
+    this.render.drawBlock(this.blocks.getCurrentBlock());
+    this.render.drawMap(this.blocks.getMap(), this.blocks.blockSize);
   }
 
   update() {
@@ -61,16 +81,13 @@ export default class Game {
       this.blocks.update();
       this.frameCounter = 0;
     }
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      if (this.blocks.checkCollision(this.blocks.getCurrentBlock())) {
-        this.blocks.addBlockToMap(this.blocks.getCurrentBlock());
-        this.blocks.setCurrentBlock(this.blocks.generateBlock());
-      }
-      this.blocks.drawBlock();
-      this.blocks.drawMap();
-      // Rotar da problemas de colision
-      // Se debe chequear que el bloque no colisione antes de rotarlo
-      // blocks.getCurrentBlock().rotate();
-      this.frameCounter += this.speed;
+
+    if (this.blocks.checkCollision(this.blocks.getCurrentBlock())) {
+      this.blocks.addBlockToMap(this.blocks.getCurrentBlock());
+      this.blocks.checkLines();
+      this.blocks.setCurrentBlock(this.blocks.generateBlock());
+    }
+    this.draw()
+    this.frameCounter += this.speed;
   }
 }

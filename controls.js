@@ -36,20 +36,19 @@ export default class Controls {
         break;
       case "KeyA":
       case "ArrowLeft": 
-        console.log("Move Left");
-        this.game.blocks.getCurrentBlock().move(-1);
+        this.game.blocks.move(-1);
         break;
       case "KeyD":
       case "ArrowRight":
-        console.log("Move Right");
-        this.game.blocks.getCurrentBlock().move(1);
+        this.game.blocks.move(1);
         break;
       case "KeyS":
       case "ArrowDown":
         if(this.game.isAccelerating) return;
-        console.log("Accelerating");
         this.game.accelerate();
         break;
+      case "Space":
+        this.game.rotateBlock();
       }
   }
 

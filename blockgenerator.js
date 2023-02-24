@@ -1,4 +1,4 @@
-import {Block} from './blocks.js';
+import { Block } from "./blocks.js";
 export default class BlockGenerator {
   constructor(canvas, blockSize) {
     this.shapes = [];
@@ -12,40 +12,47 @@ export default class BlockGenerator {
     // Shapes
     this.shapes.push(
       {
-        type: "L",
         shape: [
           [1, 0],
           [1, 0],
           [1, 1],
         ],
-        color: "green",
+        color: "#7FFF00",
       },
       {
-        type: "Z",
         shape: [
           [2, 2, 0],
           [0, 2, 2],
         ],
-        color: "blue",
+        color: "#00008B",
       },
       {
-        type: "O",
         shape: [
           [3, 3],
           [3, 3],
         ],
-        color: "orange",
+        color: "#FF8C00",
       },
-      { type: "I", shape: [[4], [4], [4], [4]], color: "red" },
+      { 
+        shape: [[4], [4], [4], [4]],
+        color: "#DC143C" },
       {
-        type: "T",
         shape: [
           [5, 0],
           [5, 5],
           [5, 0],
         ],
-        color: "yellow",
+        color: "#00BFFF",
       }
+      // {
+      //   type: "+",
+      //   shape: [
+      //     [0, 6, 0],
+      //     [6, 6, 6],
+      //     [0, 6, 0],
+      //   ],
+      //   color: "cyan",
+      // }
     );
 
     this.colors = this.shapes.map((block) => block.color);
@@ -62,6 +69,12 @@ export default class BlockGenerator {
         (Math.random() * (this.width + this.blockSize - blockWidth)) /
           this.blockSize
       ) * this.blockSize;
-    return new Block(this.canvas.getContext("2d"), pos, shape, reversed, this.blockSize);
+    return new Block(
+      this.canvas.getContext("2d"),
+      pos,
+      shape,
+      reversed,
+      this.blockSize
+    );
   }
 }
