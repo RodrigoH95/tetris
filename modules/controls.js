@@ -2,10 +2,13 @@ export default class Controls {
   constructor(game) {
     this.game = game;
     this.controls = null;
+    this.buttons = null;
+    this.movementLoop = null; // mobile
   }
 
   init() {
     console.log("Controls starting...");
+    this.buttons = document.getElementById("buttons");
     this.enableControls(true);
   }
 
@@ -22,11 +25,15 @@ export default class Controls {
   startListeners() {
     addEventListener("keydown", this.handleKeyDown.bind(this));
     addEventListener("keyup", this.handleKeyUp.bind(this));
+    addEventListener("touchstart", this.handleTouchStart.bind(this));
+    addEventListener("touchend", this.handleTouchEnd.bind(this));
   }
 
   stopListeners() {
     removeEventListener("keydown", this.handleKeyDown.bind(this));
     removeEventListener("keyup", this.handleKeyUp.bind(this));
+    removeEventListener("touchstart", this.handleTouchStart.bind(this));
+    removeEventListener("touchend", this.handleTouchEnd.bind(this));
   }
 
   handleKeyDown(key) {
@@ -56,6 +63,40 @@ export default class Controls {
     switch (key.code) {
       case "KeyS":
       case "ArrowDown":
+        if(!this.game.isAccelerating) return;
+        this.game.slowDown();
+        break;
+    }
+  }
+
+  handleTouchStart(elem) {
+    const id = elem.target.id;
+    switch (id) {
+      case "left":
+        this.movementLoop = setInterval(() => this.game.blocks.move(-1), 50);
+        break;
+      case "right":
+        this.movementLoop = setInterval(() => this.game.blocks.move(1), 50);
+        break;
+      case "rotate":
+        this.game.rotateBlock();
+        break;
+      case "down":
+        if(this.game.isAccelerating) return;
+        this.game.accelerate();
+        break;
+    }
+  }
+
+  handleTouchEnd(elem) {
+    console.log("Suelta", elem.target.id);
+    const id = elem.target.id;
+    switch (id) {
+      case "left":
+      case "right":
+        clearInterval(this.movementLoop);
+        break;
+      case "down":
         if(!this.game.isAccelerating) return;
         this.game.slowDown();
         break;

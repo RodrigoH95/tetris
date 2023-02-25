@@ -42,7 +42,7 @@ export class Block {
 export class Blocks {
   constructor(canvas) {
     this.canvas = canvas;
-    this.blockSize = 20;
+    this.blockSize = this.canvas.width / 20;
     this.map = new BlockMap(this.blockSize);
     this.blockGenerator = new BlockGenerator(this.canvas.width, this.blockSize);
     this.shapes = [];

@@ -1,7 +1,44 @@
-#root {
+:root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
+#root {
+  position: relative;
+  left: 0;
+  display: inline-block;
+}
+
 canvas {
-  outline: 8px solid black;
+  outline: 2px solid black;
+  image-rendering:auto;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr;
+  grid-template-rows: 80% 20%;
+  height: 100%
+}
+
+.button {
+  /* border: 1px solid red; */
+}
+
+#down {
+  grid-column: span 3;
+}
+
+@media screen and (max-width: 600px){
+
 }
