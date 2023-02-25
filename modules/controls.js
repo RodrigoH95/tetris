@@ -73,10 +73,12 @@ export default class Controls {
     const id = elem.target.id;
     switch (id) {
       case "left":
-        this.movementLoop = setInterval(() => this.game.blocks.move(-1), 50);
+        this.game.blocks.move(-1)
+        this.movementLoop = setInterval(() => this.game.blocks.move(-1), 80);
         break;
       case "right":
-        this.movementLoop = setInterval(() => this.game.blocks.move(1), 50);
+        this.game.blocks.move(1)
+        this.movementLoop = setInterval(() => this.game.blocks.move(1), 80);
         break;
       case "rotate":
         this.game.rotateBlock();
