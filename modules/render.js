@@ -3,6 +3,7 @@ export default class Render {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.colors = colors;
+    this.score = document.getElementById("score");
   }
 
   drawSquare(x, y, size, color) {
@@ -48,5 +49,9 @@ export default class Render {
       }
       y += size;
     }
+  }
+
+  showScore(score) {
+    this.score.innerText = score.padStart(9, '0');
   }
 }

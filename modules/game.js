@@ -16,6 +16,7 @@ export default class Game {
     this.frameCounter = 0;
     this.isAccelerating = false;
     this.render = null;
+    this.score = 0;
     // this.lastLoop = null;
   }
 
@@ -86,7 +87,11 @@ export default class Game {
     if (this.frameCounter >= this.FPS / this.speed) {
       if (this.blocks.checkCollision(this.blocks.getCurrentBlock())) {
         this.blocks.addBlockToMap(this.blocks.getCurrentBlock());
-        this.blocks.checkLines();
+        const lines = this.blocks.map.checkLines();
+        if (lines) {
+          this.score += 1000 * 5 ** lines;
+          this.render.showScore(String(this.score));
+        }
         this.blocks.setCurrentBlock(this.blocks.generateBlock());
       }
       this.blocks.update();

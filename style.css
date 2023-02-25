@@ -31,8 +31,17 @@ canvas {
   height: 100%
 }
 
-.button {
-  /* border: 1px solid red; */
+/* .button {
+  border: 1px solid red;
+} */
+
+.score {
+  position: absolute;
+  top: 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+  padding: 0.2rem;
+  font-family: monospace;
 }
 
 #down {
