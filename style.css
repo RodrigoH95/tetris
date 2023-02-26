@@ -8,6 +8,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+  background: #717171;
 }
 
 .container {
@@ -33,6 +34,7 @@ body {
 canvas {
   outline: 2px solid black;
   image-rendering:auto;
+  background: #cacaca;
 }
 
 .buttons {
@@ -52,12 +54,14 @@ canvas {
 .button > img {
   width: 100%;
   pointer-events: none;
+  background: #ffd000;
+  border-radius: 50%;
+  user-select: none;
 }
 
 .score {
   position: absolute;
   top: 0;
-  font-size: 1.2rem;
   font-weight: 900;
   padding: 0.2rem;
   font-family: monospace;
@@ -67,11 +71,15 @@ canvas {
   display: flex;
   align-items: center;
   margin: auto;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: monospace;
   gap: 2rem;
 }
 
 .nextBlockImg {
   height: 2rem;
+  width: 2rem;
 }
 
 #next {
@@ -85,5 +93,14 @@ canvas {
 @media screen and (min-width: 600px){
   .buttons {
     display: none;
+  }
+
+  .gui {
+    font-size: 3rem;
+  }
+
+  .nextBlockImg {
+    height: 4rem;
+    width: 4rem;
   }
 }
