@@ -14,6 +14,8 @@ body {
   border: 2px solid black;
   display: flex;
   flex-direction: column;
+  padding: 1rem 0;
+  box-sizing: border-box;
 }
 
 .game {
@@ -36,7 +38,7 @@ canvas {
 .buttons {
   /* position: absolute; */
   margin: auto;
-  width: 60%;
+  width: 70%;
   /* border: 4px solid purple; */
   gap: 2rem;
   display: grid;
@@ -69,7 +71,7 @@ canvas {
 }
 
 .nextBlockImg {
-  height: 3rem;
+  height: 2rem;
 }
 
 #next {
