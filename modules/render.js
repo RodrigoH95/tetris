@@ -4,16 +4,18 @@ export default class Render {
     this.ctx = canvas.getContext("2d");
     this.colors = colors;
     this.score = document.getElementById("score");
+    this.nextBlockCanvas = document.createElement("canvas");
+    this.nextBlockGUI = document.getElementById("next");
   }
 
-  drawSquare(x, y, size, color) {
-    this.ctx.fillStyle = color;
-    this.ctx.beginPath();
-    this.ctx.rect(x, y, size, size);
-    this.ctx.fill();
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeStyle = "black";
-    this.ctx.stroke();
+  drawSquare(ctx, x, y, size, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.rect(x, y, size, size);
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "black";
+    ctx.stroke();
   }
 
   drawMap(map, blockSize) {
@@ -24,7 +26,7 @@ export default class Render {
           const color = this.colors[map[i][j] - 1];
           const x = j * blockSize;
           const y = i * blockSize;
-          this.drawSquare(x, y, blockSize, color);
+          this.drawSquare(this.ctx, x, y, blockSize, color);
         }
       }
     }
@@ -34,16 +36,16 @@ export default class Render {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  drawBlock(block) {
+  drawBlock(block, ctx = this.ctx, toShow = false) {
     const color = block.color;
     const size = block.blockSize;
-    let y = block.y;
+    let y = toShow ? 0 : block.y;
     if (!block.shape) return;
     for (let row of block.shape) {
-      let x = block.x;
+      let x = toShow ? 0 : block.x;
       for (const square of row) {
         if (square) {
-          this.drawSquare(x, y, size, color);
+          this.drawSquare(ctx, x, y, size, color);
         }
         x += size;
       }
@@ -53,5 +55,16 @@ export default class Render {
 
   showScore(score) {
     this.score.innerText = score.padStart(9, '0');
+  }
+
+  showNextBlock(block) {
+    const blockWidth = block.getWidth();
+    const blockHeight = block.getHeight();
+    this.nextBlockCanvas.height = blockHeight;
+    this.nextBlockCanvas.width = blockWidth;
+    const ctx = this.nextBlockCanvas.getContext("2d");
+    this.drawBlock(block, ctx, true);
+
+    this.nextBlockGUI.src = this.nextBlockCanvas.toDataURL();
   }
 }

@@ -4,7 +4,7 @@ import Render from "./render.js";
 
 export default class Game {
   constructor(root) {
-    this.root = root;
+    this.root = null;
     this.canvas = null;
     this.blocks = null;
     this.ctx = null;
@@ -17,12 +17,18 @@ export default class Game {
     this.isAccelerating = false;
     this.render = null;
     this.score = 0;
+    this.nextBlock;
     // this.lastLoop = null;
   }
 
-  init(width, height) {
+  init() {
+    this.root = document.getElementById("root");
     console.log("Game starting...");
     const canvas = document.createElement("canvas");
+    // 20 x 40 MAP
+    const height = Math.floor(this.root.clientHeight / 40) * 40;
+    const width = Math.floor(height / 2);
+    console.log(this.root);
     canvas.width = width;
     canvas.height = height;
 
@@ -44,6 +50,8 @@ export default class Game {
 
   start() {
     this.blocks.setCurrentBlock(this.blocks.generateBlock());
+    this.nextBlock = this.blocks.generateBlock();
+    this.render.showNextBlock(this.nextBlock);
     this.startLoop();
   }
 
@@ -63,7 +71,10 @@ export default class Game {
 
   rotateBlock() {
     const orig = this.blocks.getCurrentBlock();
-    const blockCopy = Object.assign(Object.create(Object.getPrototypeOf(orig)), orig);
+    const blockCopy = Object.assign(
+      Object.create(Object.getPrototypeOf(orig)),
+      orig
+    );
     blockCopy.rotate();
     if (!this.blocks.map.checkLateralCollision(blockCopy, 0)) {
       orig.rotate();
@@ -82,7 +93,7 @@ export default class Game {
   }
 
   update() {
-    this.draw()
+    this.draw();
 
     if (this.frameCounter >= this.FPS / this.speed) {
       if (this.blocks.checkCollision(this.blocks.getCurrentBlock())) {
@@ -92,7 +103,9 @@ export default class Game {
           this.score += 1000 * 5 ** lines;
           this.render.showScore(String(this.score));
         }
-        this.blocks.setCurrentBlock(this.blocks.generateBlock());
+        this.blocks.setCurrentBlock(this.nextBlock);
+        this.nextBlock = this.blocks.generateBlock();
+        this.render.showNextBlock(this.nextBlock);
       }
       this.blocks.update();
       this.frameCounter = 0;

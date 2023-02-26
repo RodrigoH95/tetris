@@ -10,8 +10,20 @@ body {
   text-align: center;
 }
 
+.container {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.game {
+  height: 100%;
+}
+
 #root {
   position: relative;
+  flex-grow: 1;
+  /* border: 1px solid red; */
   left: 0;
   display: inline-block;
 }
@@ -22,18 +34,23 @@ canvas {
 }
 
 .buttons {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  /* position: absolute; */
+  margin: auto;
+  width: 60%;
+  /* border: 4px solid purple; */
+  gap: 2rem;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1.5fr;
-  grid-template-rows: 80% 20%;
-  height: 100%
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* .button {
   border: 1px solid red;
 } */
+
+.button > img {
+  width: 100%;
+  pointer-events: none;
+}
 
 .score {
   position: absolute;
@@ -44,9 +61,24 @@ canvas {
   font-family: monospace;
 }
 
-#down {
-  grid-column: span 3;
+.gui {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  gap: 2rem;
 }
+
+.nextBlockImg {
+  height: 3rem;
+}
+
+#next {
+  height: 100%;
+}
+
+/* #down {
+  grid-column: span 3;
+} */
 
 @media screen and (max-width: 600px){
 

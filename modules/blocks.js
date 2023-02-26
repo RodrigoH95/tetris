@@ -37,6 +37,14 @@ export class Block {
     // Direction = -1 || 1;
     this.x += direction * this.blockSize;
   }
+
+  getWidth() {
+    return this.shape[0].length * this.blockSize;
+  }
+
+  getHeight() {
+    return this.shape.length * this.blockSize;
+  }
 }
 
 export class Blocks {

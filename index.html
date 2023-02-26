@@ -8,13 +8,23 @@
   <title>Tetris</title>
 </head>
 <body oncontextmenu="return false;">
-  <div id="root">
-    <div class="score"><span id="score">000000000</span></div>
+  <div class="container" id="container">
+    <h2>TETRIS</h2>
+    <div class="gui">
+      <div>Puntaje: <span id="score">000000000</span></div>
+      <p>Siguiente:</p>
+      <div class="nextBlockImg">
+        <img src="" id="next"></img>
+      </div>
+    </div>
+    <div id="root">
+      <div class="score"></div>
+    </div>
     <div class="buttons" id="buttons">
-      <div class="button" id="left"></div>
-      <div class="button" id="rotate"></div>
-      <div class="button" id="right"></div>
-      <div class="button" id="down"></div>
+      <div class="button" id="left"><img src="assets/img/left.png" alt=""></div>
+      <div class="button" id="right"><img src="assets/img/right.png" alt=""></div>
+      <div class="button" id="rotate"><img src="assets/img/rotate.png" alt=""></div>
+      <div class="button" id="down"><img src="assets/img/down.png" alt=""></div>
     </div>
   </div>
   <script type="module" src="main.js"></script>
