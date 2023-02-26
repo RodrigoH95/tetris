@@ -74,11 +74,11 @@ export default class Controls {
     switch (id) {
       case "left":
         this.game.blocks.move(-1)
-        this.movementLoop = setInterval(() => this.game.blocks.move(-1), 80);
+        this.movementLoop = setInterval(() => this.game.blocks.move(-1), 100);
         break;
       case "right":
         this.game.blocks.move(1)
-        this.movementLoop = setInterval(() => this.game.blocks.move(1), 80);
+        this.movementLoop = setInterval(() => this.game.blocks.move(1), 100);
         break;
       case "rotate":
         this.game.rotateBlock();
