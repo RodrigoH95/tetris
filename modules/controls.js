@@ -70,6 +70,7 @@ export default class Controls {
   }
 
   handleTouchStart(elem) {
+    if(!elem.target.classList.contains("button")) return;
     const id = elem.target.id;
     switch (id) {
       case "left":
@@ -91,7 +92,7 @@ export default class Controls {
   }
 
   handleTouchEnd(elem) {
-    console.log("Suelta", elem.target.id);
+    if(!elem.target.classList.contains("button")) return;
     const id = elem.target.id;
     switch (id) {
       case "left":

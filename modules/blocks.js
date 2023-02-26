@@ -99,7 +99,6 @@ export class Blocks {
 
   move(direction) {
     const currentBlock = this.currentBlock;
-
     if (!this.map.checkLateralCollision(currentBlock, direction)) {
       currentBlock.move(direction);
     }

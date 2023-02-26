@@ -28,7 +28,6 @@ export default class Game {
     // 20 x 40 MAP
     const height = Math.floor(this.root.clientHeight / 40) * 40;
     const width = Math.floor(height / 2);
-    console.log(this.root);
     canvas.width = width;
     canvas.height = height;
 

@@ -45,7 +45,7 @@ canvas {
   margin: auto;
   width: 70%;
   /* border: 4px solid purple; */
-  gap: 2rem;
+  gap: 1.2rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
